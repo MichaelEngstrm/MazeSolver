@@ -65,4 +65,32 @@ class Maze:
         self._draw_cell(self._num_cols-1, self._num_rows-1)
 
     def _break_walls_r(self, i, j):
-        pass
+        self._cells[i][j]._visited = True
+
+        while True:
+            to_visit = [i+1, i-1, j+1, j-1]
+            available_cells = []
+            if to_visit[0] < self._num_cols:
+                if not self._cells[to_visit[0]][j]._visited:
+                    available_cells.append(self._cells[to_visit[0][j]])
+            
+            if to_visit[1] > 0:
+                if not self._cells[to_visit[1]][j]._visited:
+                    available_cells.append(self._cells[to_visit[1][j]])
+
+            if to_visit[2] < self._num_rows:
+                if not self._cells[i][to_visit[2]]._visited:
+                    available_cells.append(self._cells[i][to_visit[2]])
+            
+            if to_visit[3] > 0:
+                if not self._cells[i][to_visit[3]]._visited:
+                    available_cells.append(self._cells[i][to_visit[3]])
+
+            if len(to_visit) == 0:
+                self._draw_cell(i, j)
+                return
+
+            direction = random.randrange(0, len(to_visit))
+            
+
+
